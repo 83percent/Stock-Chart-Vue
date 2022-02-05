@@ -31,7 +31,7 @@ export default {
         position: fixed;
         top: 2rem;
         left: 3rem;
-
+        z-index: 999;
         > a#logo {
             all: unset;
             cursor: pointer;
