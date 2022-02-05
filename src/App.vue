@@ -1,17 +1,21 @@
 <template>
   <div id="app">
+    <menu-wrap></menu-wrap>
     <main>
-      <router-view>
-
-      </router-view>
+      <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
+import MenuWrap from './components/nav/MenuWrap.vue';
+
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    MenuWrap
+  }
 }
 </script>
 
