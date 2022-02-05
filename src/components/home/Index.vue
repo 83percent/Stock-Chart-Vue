@@ -12,7 +12,7 @@
                 <li
                     v-for="element of searchResults"
                     :key="element[0]"
-                    is="SearchResultElement"
+                    is="StockCard"
                     :options="element[1].options"
                     :price="element[1].price"
                     :name="element[0]">
@@ -27,7 +27,7 @@
 import SearchInput from '../search/Search.vue';
 
 // Component
-import SearchResultElement from '../search/SearchResultElement.vue';
+import StockCard from '../stock/StockCard.vue';
 
 export default {
     data : function() {
@@ -42,7 +42,7 @@ export default {
     },
     components : {
         SearchInput,
-        SearchResultElement
+        StockCard
     },
     methods: {
         setSearchResults: function(results) {
