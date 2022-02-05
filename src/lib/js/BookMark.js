@@ -1,27 +1,15 @@
-
+import Storage from './Storage';
 class BookMark {
+    static instance
     constructor() {
-        this.__STORAGE_NAME__ = "BeautiStock";
-        this.instance = null;
+        if(BookMark.instance) return BookMark.instance;
 
-        this.storage = localStorage.getItem(this.__STORAGE_NAME__);
-        if(!this.storage) {
-            this.storage = this.init();
-            localStorage.setItem(this.__STORAGE_NAME__, JSON.stringify(this.init()));
-        } else {
-            this.storage = JSON.parse(this.storage);
-        }
-    }
-    static getInstance() {
-        if(!this.instance) this.instance = new BookMark();
-        return this.instance;
-    }
-    init() {
-        return {
-            bookMark: []
-        }
-    }
-    get() {return this.storage}
+        this.storage = new Storage();
+        this.bookMark = this.storage.get().bookMarks;
+
+        // Singleton
+        BookMark.instance = this;
+    }    
     /***
      * bookMark Toggle
      * @param {String} : 즐겨찾기 하려는 주식의 index name
@@ -29,29 +17,25 @@ class BookMark {
      * @return {Boolean} : toogle 결과 (true : 즐겨찾기 활성화 / false : 즐겨찾기 비활성화)
      */
     toggle(name, force) {
-        const index = this.storage.bookMark.indexOf(name);
+        const index = this.bookMark.indexOf(name);
         if(force === undefined) {
-            if(index >= 0) this.storage.bookMark.splice(index,1);
-            else this.storage.bookMark.push(name);
+            if(index >= 0) this.bookMark.splice(index,1);
+            else this.bookMark.push(name);
     
-            this.save();
+            this.storage.save();
             return index >= 0 ? false : true;
         } else {
             if(force === true && index === -1) {
-                this.storage.bookMark.push(name);
+                this.bookMark.push(name);
             } else if(force === false && index >= 0) {
-                this.storage.bookMark.splice(index,1);
+                this.bookMark.splice(index,1);
             }
-            this.save();
+            this.storage.save();
             return force;
         }
     }
     isMark(name) {
-        return this.storage.bookMark.includes(name);
-    }
-
-    save() {
-        localStorage.setItem(this.__STORAGE_NAME__, JSON.stringify(this.storage));
+        return this.bookMark.includes(name);
     }
 }
 

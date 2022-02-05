@@ -20,7 +20,7 @@ export default {
     data: function() {
         return {
             chart: null,
-            favor: BookMark.getInstance().isMark(this.name)
+            favor: new BookMark().isMark(this.name)
         }
     },
     props: {
@@ -91,7 +91,7 @@ export default {
         }, // createChart
 
         toggleBookMark: function() {
-            const bookMark = BookMark.getInstance();
+            const bookMark = new BookMark();
             this.favor = bookMark.toggle(this.name);
         }
     },

@@ -32,8 +32,12 @@ import SearchResultElement from '../search/SearchResultElement.vue';
 export default {
     data : function() {
         return {
-            money: 4226020,
             searchResults: []
+        }
+    },
+    computed: {
+        money () {
+            return this.$store.getters.money;
         }
     },
     components : {
